@@ -61,19 +61,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                  */
                 "/", "/*.html", "/favicon.ico", "/**/*.html", "/**/*.css", "/**/*.js", "/swagger-resources/**",
                 "/v2/api-docs/**")
-            .permitAll().antMatchers("/admin/login", "/admin/register")
+            .permitAll()
             /**
              * 对登录注册要允许匿名访问
              */
-            .permitAll().antMatchers(HttpMethod.OPTIONS)
+            .antMatchers("/admin/login", "/admin/register").permitAll()
             /**
              * 跨域请求会先进行一次options请求
              */
-            .permitAll().anyRequest()
+            .antMatchers(HttpMethod.OPTIONS).permitAll()
+            // /**
+            // * 测试时全部运行访问
+            // */
+            // .antMatchers("/**").permitAll()
             /**
              * 除上面外的所有请求全部需要鉴权认证
              */
-            .authenticated();
+            .anyRequest().authenticated();
+
         /**
          * 禁用缓存
          */
