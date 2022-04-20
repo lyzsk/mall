@@ -18,7 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import cn.sichu.graduatemall.utils.JwtTokenUtil;
+import cn.sichu.graduatemall.common.utils.JwtTokenUtil;
 
 /**
  * JWT登录授权过滤器

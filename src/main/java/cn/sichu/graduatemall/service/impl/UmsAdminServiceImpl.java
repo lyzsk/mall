@@ -17,13 +17,13 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import cn.sichu.graduatemall.common.utils.JwtTokenUtil;
 import cn.sichu.graduatemall.dao.UmsAdminRoleRelationDao;
 import cn.sichu.graduatemall.mbg.mapper.UmsAdminMapper;
 import cn.sichu.graduatemall.mbg.model.UmsAdmin;
 import cn.sichu.graduatemall.mbg.model.UmsAdminExample;
 import cn.sichu.graduatemall.mbg.model.UmsPermission;
 import cn.sichu.graduatemall.service.UmsAdminService;
-import cn.sichu.graduatemall.utils.JwtTokenUtil;
 
 /**
  * UmsAdminService实现类
