@@ -20,25 +20,25 @@
 - SpringSecurity + JWT
     - admin && member has different permission
         - member_limitPermission:
-        ![Image text]()
+        ![Image text](https://github.com/lyzsk/graduate-mall/blob/master/screenshoots/member_limitPermission.gif)
 
         - admin_allPermission:
-        ![Image text]()
+        ![Image text](https://github.com/lyzsk/graduate-mall/blob/master/screenshoots/admin_allPermission.gif)
     - admin can get access to all object with Spring injection
         ```shell
         ##@PreAuthorize("hasAuthority('pms:brand:read')")
         ```
-    - springsecurity_limitPermission
-    ![Image text]()
+        - springsecurity_limitPermission
+        ![Image text](https://github.com/lyzsk/graduate-mall/blob/master/screenshoots/springsecurity_limitPermission.png)
 - Elasticsearch:
     - Implement product search:
-    ![Image text]()
+    ![Image text](https://github.com/lyzsk/graduate-mall/blob/master/screenshoots/ES_productSearch.gif)
 - Mongodb:
     - Implement `create`, `delete`, `list` in `product member read history`:
-    ![Image text]()
+    ![Image text](https://github.com/lyzsk/graduate-mall/blob/master/screenshoots/mongodb_CRUD.gif)
 - SpringTask:
     - Start a scheduled task, check every 10 min, if there is an order that has not been paid, auto cancel the order:
-    ![Image text]()
+    ![Image text](https://github.com/lyzsk/graduate-mall/blob/master/screenshoots/SpringTask_cancelOrder.png)
     
 - [(Back to top)](#JAVA-mall)
 
