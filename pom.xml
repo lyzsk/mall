@@ -40,7 +40,7 @@
 <dependency>
     <groupId>com.github.pagehelper</groupId>
     <artifactId>pagehelper-spring-boot-starter</artifactId>
-    <version>1.4.1</version>
+    <version>1.2.10</version><!-- origin version:1.4.1 -->
 </dependency>
 
         <!--集成druid连接池-->
@@ -48,7 +48,7 @@
 <dependency>
     <groupId>com.alibaba</groupId>
     <artifactId>druid-spring-boot-starter</artifactId>
-    <version>1.2.8</version>
+    <version>1.1.10</version><!-- origin v:1.2.8 -->
 </dependency>
 
         <!-- MyBatis 生成器 -->

@@ -1,4 +1,4 @@
-package cn.sichu.graduatemall.utils;
+package cn.sichu.graduatemall.common.utils;
 
 import java.util.Date;
 import java.util.HashMap;
