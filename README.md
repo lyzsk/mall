@@ -30,7 +30,7 @@
 
 # Introduction
 
-This project is developed using **SpringBoot + MyBatis** frameworks, provide mall project back-end RESTful API.
+This project is developed using **SpringBoot + MyBatis** frameworks, provide mall project RESTful API.
 
 It is currently under development, you can access all the API with [Swagger-UI] after running the project.
 
@@ -45,7 +45,7 @@ It is currently under development, you can access all the API with [Swagger-UI] 
     ```
 
 2. create MySQL database `mall`, and import `mall.sql` script.
-3. prepare Redis, RabbitMQ, MongoDB, Elasticsearch, and modify related settings in `application.yml`.
+3. prepare **Redis**, **RabbitMQ**, **MongoDB**, **Elasticsearch**, and modify related settings in `application.yml`.
 
     ```
     <!-- start redis -->
@@ -67,7 +67,7 @@ It is currently under development, you can access all the API with [Swagger-UI] 
 
 Implement **Ums(User management system)** user login with authentication + authorization by using SpringSecurity + JWT.
 
--   when user **POST** login info to login interface, firstly, check username - password
+-   when user **POST** login info to API, firstly, authenticate username - password
 -   if password correct, return 200, generate JWT token with header: Bearer
 -   authorize the login with header + token, and **GET** authorization with userId.
 
@@ -109,15 +109,15 @@ key java code:
         return CommonResult.success(sb.toString(), "获取验证码成功");
 ```
 
-## SpringTask auto cancel order
+## SpringTask auto cancel order and RabbitMQ delay message
 
-If user places an order for a product:
+Implement `OmsPortalOrderController` and `OmsPortalOrderService`, If user places an order for a product:
 
 1. lock products in inventory.
-2. generate an order based on the products information purchased by the user
-3. set SpringTask, check payment succeful every 10 minutes.
-4. If user didn't pay in 60 minutes (`@Scheduled(cron = "0 0/10 * ? * ?")`):
-    - cancel order, release locked items
+2. generate order with orderId.
+3. SpringTask set order timeout in 60 minutes (`@Scheduled(cron = "0 0/10 * ? * ?")`)
+4. If order timeout, send delayed message to MQ, with `delayTimes` 30s, cancel order.
+5. If user didn't pay in time, process cancel order, release locked products.
 
 ### Preview
 
@@ -125,14 +125,16 @@ If user places an order for a product:
 
     ![preview-03]
 
-# Product search with Elasitcsearch and support Chinese word segmentation:
+## Product search with Elasitcsearch and support Chinese word segmentation:
 
 1. Use Spring Data Elasticsearch to simplify the code, by using annotations: `@interface Document`, `@interface Id`, `@interface Field`
 2. Besides traditional keywords search, implement `findByNameOrSubTitleOrKeywords` method, provid derived query for keywords:
+
     ```java
     @Query("{"bool" : {"must" : {"field" : {"name" : "?0"}}}}")
     Page<EsProduct> findByName(String name,Pageable pageable);
     ```
+
 3. use `@Field(analyzer = "ik_max_word",type = FieldType.Text)` annotation to set the word that will be need Chinese word segmentation.
 
 ### Preview
@@ -143,15 +145,13 @@ If user places an order for a product:
 
 ## Use MongoDB create, delete, list API for Member Read History
 
-When user browse products, can use this API, to create member read history, and store into MongoDB.
+1. When user browse products, can use this API, to create member read history, and store into MongoDB.
+2. They could also delete the history, or get all history.
+3. When user list the history, it will list by create time in Descending order:
 
-They could also delete the history, or get all history.
-
-When user list the history, it will list by create time in Descending order:
-
-```java
-List<MemberReadHistory> findByMemberIdOrderByCreateTimeDesc(Long memberId);
-```
+    ```java
+    List<MemberReadHistory> findByMemberIdOrderByCreateTimeDesc(Long memberId);
+    ```
 
 ### Preview
 
