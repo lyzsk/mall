@@ -1,4 +1,4 @@
-**[简体中文](./README.CN.md) | English**
+**简体中文 | [English](./README.md)**
 
 <p align="center">
     <a href="https://github.com/lyzsk/mall/blob/master/LICENSE">
